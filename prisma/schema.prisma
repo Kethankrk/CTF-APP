@@ -18,3 +18,13 @@ model User {
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Challenge {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  category  String
+  value     Int
+  type      String
+  status    String
+  createdAt DateTime @default(now())
+}
