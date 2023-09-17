@@ -2,6 +2,7 @@
 import Navbar from '../components/nav'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import LoadingPage from '../components/loadingPage'
 
 export default function RootLayout({ children }) {
     const router = useRouter()
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
     }, [router])
 
     if (isChecking) {
-        return <p>loading</p>
+        return <LoadingPage />
     }
 
     return (
