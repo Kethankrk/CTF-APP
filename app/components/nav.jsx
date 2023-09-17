@@ -4,7 +4,7 @@ import LogoutBtn from "./logoutBtn"
 
 export default function Navbar() {
     return (
-        <div className="flex justify-between items-center h-[80px] px-10 navbar relative z-10">
+        <nav className="flex justify-between items-center h-[80px] px-10 navbar relative z-10">
             <p className="text-3xl font-bold text-yellow">IEDC-CTF</p>
             <ul className="flex gap-10 text-white">
                 <li><Link href='/home'>Challenges</Link></li>
@@ -17,6 +17,6 @@ export default function Navbar() {
                 </div>
                 <LogoutBtn />
             </div>
-        </div>
+        </nav>
     )
 }
