@@ -44,7 +44,8 @@ export async function POST(request) {
         })
 
         const token = sign({
-            username
+            username: usr.username,
+            isAdmin: usr.isAdmin
         },
             process.env.JWT_SEC,
         )

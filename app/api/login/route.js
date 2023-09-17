@@ -5,26 +5,24 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     try {
         const { username, password } = await request.json()
-        let usrCount = 0;
-
-        if (username) {
-            usrCount = await prisma.user.count({
-                where: {
-                    username,
-                    AND: {
-                        password
-                    }
+        const user = await prisma.user.findUnique({
+            where: {
+                username,
+                AND: {
+                    password
                 }
-            })
-        }
-        if (!usrCount) {
+            }
+        })
+        if (!user) {
+            console.log(user)
             return NextResponse.json({
                 status: "error",
                 error: "Invalid Credentials"
             })
         }
         const token = sign({
-            username
+            username: user.username,
+            isAdmin: user.isAdmin
         },
             process.env.JWT_SEC
         )
