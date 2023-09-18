@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 export default function MarkdonwInput() {
     const [selectedText, setSelectedText] = useState({
@@ -38,7 +38,7 @@ export default function MarkdonwInput() {
                 deco = "_"
                 break;
             case 'code':
-                deco = '```'
+                deco = '\n```\n'
                 break;
 
         }
@@ -50,14 +50,32 @@ export default function MarkdonwInput() {
             text: ''
         })
     }
+
+    const handleEnter = (key) => {
+        if (key.keyCode == 13) {
+            key.preventDefault();
+            const location = key.target.selectionEnd;
+            const currentValue = mdInput.current.value;
+            const newValue =
+                currentValue.substring(0, location) +
+                '  \n' +
+                currentValue.substring(location);
+
+            mdInput.current.value = newValue;
+            mdInput.current.selectionStart = mdInput.current.selectionEnd = location + 3;
+            setInputText(newValue)
+
+        }
+    }
+
     return (
         <div className="w-full bg-dark p-2 rounded-[10px] mt-10">
             <div className="flex gap-5 justify-end py-2 px-5">
                 <Image src='/B.svg' height={10} width={10} name='bold' className="fill-white" onClick={(event) => handleDcoration(event.target.name)} />
                 <Image src='/H.svg' height={10} width={10} />
-                <Image src='/code.svg' height={20} width={20} name='code' onClick={(e) => handleDcoration(e.target.name)}/>
+                <Image src='/code.svg' height={20} width={20} name='code' onClick={(e) => handleDcoration(e.target.name)} />
             </div>
-            <textarea ref={mdInput} className="w-full min-h-[200px] rounded-[6px] bg-dark border-[2px] border-light p-3" placeholder="Descrption" onSelect={(event) => handleSelect(event)} onChange={(event) => setInputText(event.target.value)} value={inputText}></textarea>
+            <textarea ref={mdInput} className="w-full min-h-[200px] rounded-[6px] bg-dark border-[2px] border-light p-3" placeholder="Descrption" onSelect={(event) => handleSelect(event)} onChange={(event) => setInputText(event.target.value)} value={inputText} onKeyDown={handleEnter}></textarea>
         </div>
     )
 }
