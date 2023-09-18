@@ -71,11 +71,14 @@ export default function MarkdonwInput() {
     return (
         <div className="w-full bg-dark p-2 rounded-[10px] mt-10">
             <div className="flex gap-5 justify-end py-2 px-5">
-                <Image src='/B.svg' height={10} width={10} name='bold' className="fill-white" onClick={(event) => handleDcoration(event.target.name)} />
-                <Image src='/H.svg' height={10} width={10} />
-                <Image src='/code.svg' height={20} width={20} name='code' onClick={(e) => handleDcoration(e.target.name)} />
+                <Image src='/B.svg' height={100} width={100} name='bold' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
+                <Image src='/H.svg' height={100} width={100} name='heading' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
+                <Image src='/U.svg' height={100} width={100} name='underline' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
+                <Image src='/link.svg' height={100} width={100} name='link' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
+                <Image src='/img.svg' height={100} width={100} name='img' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
+                <Image src='/code.svg' height={100} width={100} name='code' className="h-8 w-fit p-2 rounded-md bg-light hover:scale-110 transition-transform" onClick={(event) => handleDcoration(event.target.name)} />
             </div>
-            <textarea ref={mdInput} className="w-full min-h-[200px] rounded-[6px] bg-dark border-[2px] border-light p-3" placeholder="Descrption" onSelect={(event) => handleSelect(event)} onChange={(event) => setInputText(event.target.value)} value={inputText} onKeyDown={handleEnter}></textarea>
+            <textarea ref={mdInput} className="w-full min-h-[300px] rounded-[6px] bg-dark border-[2px] border-light p-3" placeholder="Descrption" onSelect={(event) => handleSelect(event)} onChange={(event) => setInputText(event.target.value)} value={inputText} onKeyDown={handleEnter}></textarea>
         </div>
     )
 }
