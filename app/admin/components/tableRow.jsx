@@ -7,8 +7,8 @@ export default function TableRow({ item }) {
             <td className="w-4/12">{item.name}</td>
             <td className="w-2/12">{item.category}</td>
             <td className="w-2/12">{item.value}</td>
-            <td className="w-2/12">{item.type}</td>
-            <td className="w-1/12">{item.status}</td>
+            <td className="w-2/12">{item.level}</td>
+            <td className="w-1/12">{item.visiblity ? "visible" : "hidden"}</td>
         </tr>
     )
 }
