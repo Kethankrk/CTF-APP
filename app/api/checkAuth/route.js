@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { verify } from "jsonwebtoken"
+import prisma from '@/app/helper/db'
 
 export async function GET(request) {
     const cookieStore = cookies()
@@ -15,8 +16,21 @@ export async function GET(request) {
     }
 
     try {
-        const usr = verify(token.value, process.env.JWT_SEC)
-        console.log(usr)
+        const data = verify(token.value, process.env.JWT_SEC)
+
+        const user = await prisma.user.findUnique({
+            where: {
+                username: data.username
+            }
+        })
+
+        if (!user) {
+            const response = NextResponse.json({
+                auth: false
+            });
+            response.cookies.delete('krk');
+            return response;
+        }
 
         return NextResponse.json({
             auth: true
