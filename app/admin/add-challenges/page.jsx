@@ -10,7 +10,7 @@ export default function AddChallenge() {
     const [inputMarkdown, setInputMarkdown] = useState('');
 
     console.log(errors)
-    const submitChallenge = (data) => {
+    const submitChallenge = async (data) => {
         let finalText = '';
         for (const i in inputMarkdown) {
             if (inputMarkdown[i] === '\n') {
@@ -21,7 +21,24 @@ export default function AddChallenge() {
                 finalText += inputMarkdown[i];
             }
         }
-        console.log({...data, description: finalText});
+
+        const finalData = { ...data, description: finalText };
+
+        const rawData = await fetch('/api/addChallenge', {
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(finalData)
+        })
+
+        const res = await rawData.json();
+        if (!res.success) {
+            alert("error");
+            return
+        }
+
+        alert("success")
     }
 
     return (
@@ -53,11 +70,11 @@ export default function AddChallenge() {
                 <MarkdonwInput setInputMarkdown={setInputMarkdown} inputMarkdown={inputMarkdown} />
                 <div className="flex flex-col gap-1 mt-10">
                     <label htmlFor="" className="font-semibold">Value</label>
-                    <input type="text" placeholder="Challenge value." className="bg-dark py-1 px-2 rounded-md shadow-inner placeholder:text-sm" {...register('value', { required: true })} />
+                    <input type="number" placeholder="Challenge value." className="bg-dark py-1 px-2 rounded-md shadow-inner placeholder:text-sm" {...register('value', { required: true })} />
                 </div>
                 <div className="flex gap-1 mt-10">
                     <label htmlFor="" className="font-medium">Visibility</label>
-                    <input type="checkbox" checked {...register('visiblity', { required: true })} />
+                    <input type="checkbox" defaultChecked {...register('visiblity',)} />
                 </div>
                 <div className="flex justify-center">
                     <button className="font-semibold py-1 px-4 bg-yellow rounded-md mt-10 text-light">Submit</button>
