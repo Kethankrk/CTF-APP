@@ -20,11 +20,12 @@ model User {
 }
 
 model Challenge {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  category  String
-  value     Int
-  type      String
-  status    String
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  category    String
+  value       Int
+  level       String
+  description String
+  visiblity   Boolean
+  createdAt   DateTime @default(now())
 }
